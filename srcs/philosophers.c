@@ -6,30 +6,38 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:42:02 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/08 18:46:12 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/13 20:16:07 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../philosophers.h"
 
-void	read_arg(t_var *var, int ac, char **av)
+unsigned long long	gettime(void)
 {
-	int	i;
+	struct timeval		time;
 
-	var->nb_phil = ft_atoi(av[1]);
-	var->ti_die = ft_atoi(av[2]);
-	var->ti_eat = ft_atoi(av[3]);
-	var->ti_slp = ft_atoi(av[4]);
-	if (av[5])
-		var->nb_eat = ft_atoi(av[5]);
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+int	return_error(char *str)
+{
+	if (str)
+		printf("%s\n", str);
+	return (1);
 }
 
 int	main(int ac, char **av)
 {
-	t_var	var;
+	t_table	table;
 
 	if (ac != 4 && ac != 5)
-		return (1);
-	read_arg(&var);
+		return (return_error("Wrong arument !!!"));
+	if (read_arg(&table, ac, av))
+		return (return_error("Error"));
+	if (philo_life(&table))
+		return (return_error("Thread error"));
+	pthread_mutex_lock(&table.dead);
+	pthread_mutex_unlock(&table.dead);
 	return (0);
 }

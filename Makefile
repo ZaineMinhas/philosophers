@@ -6,7 +6,7 @@
 #    By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/08 16:29:37 by zminhas           #+#    #+#              #
-#    Updated: 2021/11/08 18:58:26 by zminhas          ###   ########.fr        #
+#    Updated: 2021/11/13 20:09:11 by zminhas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,13 @@ BLUE		= $(shell tput -Txterm setaf 6)
 WHITE		= $(shell tput -Txterm setaf 7)
 RESET		= $(shell tput -Txterm sgr0)
 
-SRCS	=	philosophers.c
+SRCS	=	srcs/philosophers.c\
+			srcs/init.c\
+			srcs/life.c\
+			srcs/routine.c\
+			utils/ft_atoi.c\
+			utils/ft_isdigit.c\
+
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -28,15 +34,11 @@ NAME	=	philo.a
 
 EXEC	=	philo
 
-UTILS_PATH	=	./utils
-
 .c.o:
 		@gcc -Wall -Wextra -Werror -c -I./ $< -o ${<:.c=.o}
 
 all:	${OBJS}
 		@clear
-		@make -C ${UTILS_PATH}
-		@mv ${UTILS_PATH}/libft.a $(NAME)
 		@ar -rcs $(NAME) ${OBJS}
 		@gcc -Wall -Wextra -Werror $(NAME) -o $(EXEC)
 		@echo "${GREEN}philo created !${RESET}"
@@ -45,7 +47,6 @@ clean:
 		@clear
 		@rm -f ${OBJS}
 		@rm -f $(NAME)
-		@make clean -C ${UTILS_PATH}
 		@echo "${YELLOW}Objects cleaned !${RESET}"
 
 fclean:
@@ -53,7 +54,6 @@ fclean:
 		@rm -f ${OBJS}
 		@rm -f $(NAME)
 		@rm -f $(EXEC)
-		@make fclean -C ${UTILS_PATH}
 		@echo "${RED}fclean done !${RESET}"
 
 re:			fclean all

@@ -1,28 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   life.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/18 11:38:45 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/08 16:22:09 by zminhas          ###   ########.fr       */
+/*   Created: 2021/11/13 18:37:36 by zminhas           #+#    #+#             */
+/*   Updated: 2021/11/13 20:29:07 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../philosophers.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+void	*routine(void *philip)
 {
-	unsigned const char	*s1_bis;
-	unsigned const char	*s2_bis;
-	size_t				i;
+	t_philo	*philo;
+
+	philo = (t_philo *)philip;
+	while (1)
+	{
+		take_forks(philo);
+		eating(philo);
+		sleeping(philo);
+	}
+}
+
+int	philo_life(t_table *table)
+{
+	pthread_t	philo;
+	int			i;
 
 	i = -1;
-	s1_bis = (unsigned const char *)s1;
-	s2_bis = (unsigned const char *)s2;
-	while (++i < n)
-		if (!(s1_bis[i] == s2_bis[i]))
-			return (s1_bis[i] - s2_bis[i]);
+	table->start = gettime();
+	while (++i < table->nb_phil)
+	{
+		if (pthread_create(&philo, NULL, &routine, (void *)(table->philo + i)))
+			return (1);
+		pthread_detach(philo);
+		usleep(100);
+	}
 	return (0);
 }

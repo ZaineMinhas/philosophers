@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/18 12:04:38 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/08 16:22:09 by zminhas          ###   ########.fr       */
+/*   Created: 2021/11/13 20:01:12 by zminhas           #+#    #+#             */
+/*   Updated: 2021/11/13 20:01:27 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../philosophers.h"
 
 int	ft_isdigit(int c)
 {

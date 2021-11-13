@@ -6,17 +6,11 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 17:50:02 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/08 16:22:09 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/13 20:29:25 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-
-static void	atoi_error(void)
-{
-	ft_putendl_fd("Error", 1);
-	exit(1);
-}
+#include "../philosophers.h"
 
 int	ft_atoi(const char *str)
 {
@@ -33,16 +27,16 @@ int	ft_atoi(const char *str)
 		if (str[i++] == '-')
 			pos_neg = -1;
 	if (!ft_isdigit(str[i]))
-		atoi_error();
+		return (-1);
 	nb = 0;
 	while (str[i] >= '0' && str[i] <= '9' && str[i])
 	{
 		nb_tmp = nb;
 		nb = nb * 10 + (str[i++] - 48);
-		if (nb < nb_tmp || (pos_neg == 1 && nb > INT_MAX))
-			atoi_error();
-		else if (pos_neg == -1 && (nb * pos_neg) < (long long)INT_MIN)
-			atoi_error();
+		if (nb < nb_tmp || (pos_neg == 1 && nb > 2147483647))
+			return (-1);
+		else if (pos_neg == -1 && (nb * pos_neg) < -2147483648)
+			return (-1);
 	}
 	return ((int)nb * pos_neg);
 }
