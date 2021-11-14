@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:50:58 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/13 20:30:15 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/14 17:20:44 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ int	init_mutex(t_table *table)
 		return (1);
 	i = -1;
 	while (++i < table->nb_phil)
-		pthread_mutex_init(&table->forks[i], NULL);
-	pthread_mutex_init(&table->talk_wand, NULL);
-	pthread_mutex_init(&table->dead, NULL);
+		if (pthread_mutex_init(&table->forks[i], NULL))
+			return (1);
+	if (pthread_mutex_init(&table->talk_staff, NULL))
+		return (1);
+	if (pthread_mutex_init(&table->dead, NULL))
+		return (1);
 	pthread_mutex_lock(&table->dead);
 	return (0);
 }
@@ -36,6 +39,8 @@ void	init_philo(t_table *table)
 	i = -1;
 	while (++i < table->nb_phil)
 	{
+		table->philo[i].nbr_eat = 0;
+		table->philo[i].is_eating = 0;
 		table->philo[i].id = i + 1;
 		table->philo[i].l_fork = i;
 		table->philo[i].r_fork = (i + 1) % table->nb_phil;

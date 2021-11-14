@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:23:37 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/13 20:26:12 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/14 17:01:00 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,18 @@ typedef struct s_table	t_table;
 
 typedef struct s_philo
 {
-	t_table	*table;
-	int		id;
-	int		r_fork;
-	int		l_fork;
+	t_table				*table;
+	int					id;
+	int					r_fork;
+	int					l_fork;
+	int					nbr_eat;
+	int					is_eating;
+	unsigned long long	last_eat;
 }				t_philo;
 
 struct s_table
 {
-	pthread_mutex_t		talk_wand;
+	pthread_mutex_t		talk_staff;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		dead;
 	t_philo				*philo;

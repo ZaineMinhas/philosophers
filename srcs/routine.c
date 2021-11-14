@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:54:48 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/13 20:22:28 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/14 17:12:19 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	print(t_philo *philo, char *str)
 {
-	pthread_mutex_lock(&philo->table->talk_wand);
-	printf("%llu %d %s\n", gettime() - philo->table->start, philo->id, str);
-	pthread_mutex_unlock(&philo->table->talk_wand);
+	unsigned long long	timestamp;
+
+	pthread_mutex_lock(&philo->table->talk_staff);
+	timestamp = gettime() - philo->table->start;
+	printf("%llu %d %s\n", timestamp, philo->id, str);
+	pthread_mutex_unlock(&philo->table->talk_staff);
 }
 
 void	take_forks(t_philo *philo)
@@ -29,8 +32,12 @@ void	take_forks(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
+	philo->is_eating = 1;
 	print(philo, "is eating");
 	usleep(philo->table->ti_eat * 1000);
+	philo->is_eating = 0;
+	philo->nbr_eat++;
+	philo->last_eat = gettime();
 	pthread_mutex_unlock(&philo->table->forks[philo->l_fork]);
 	pthread_mutex_unlock(&philo->table->forks[philo->r_fork]);
 }
