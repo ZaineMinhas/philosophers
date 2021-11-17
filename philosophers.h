@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:23:37 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/14 17:01:00 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/17 18:34:16 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void				sleeping(t_philo *philo);
 
 unsigned long long	gettime(void);
 int					return_error(char *str);
-
+int					make_clean(t_table *table, int type);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
 

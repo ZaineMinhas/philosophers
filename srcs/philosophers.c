@@ -6,18 +6,15 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:42:02 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/14 16:52:30 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/17 17:59:10 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-unsigned long long	gettime(void)
+int	make_clean(t_table *table, int type)
 {
-	struct timeval		time;
-
-	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	
 }
 
 int	return_error(char *str)
@@ -39,5 +36,6 @@ int	main(int ac, char **av)
 		return (return_error("Thread error"));
 	pthread_mutex_lock(&table.dead);
 	pthread_mutex_unlock(&table.dead);
+	make_fclean(&table);
 	return (0);
 }
