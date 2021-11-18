@@ -6,38 +6,48 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:37:36 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/14 17:25:52 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/18 19:14:02 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
+void	end_meal(t_philo *philo)
+{
+	int	count;
+	int	i;
+
+	i = -1;
+	count = 0;
+	while (++i < philo->table->nb_phil)
+		if (philo->table->philo[i].nbr_eat >= philo->table->nb_eat)
+			count++;
+	if (count == philo->table->nb_phil)
+	{
+		pthread_mutex_lock(&philo->table->talk_staff);
+		pthread_mutex_unlock(&philo->table->dead);
+		print(philo, "PONG LENIS", 1, 0);
+		return ;
+	}
+}
+
 void	*end_calc(void *philip)
 {
 	t_philo	*philo;
-	int		count;
-	int		i;
 
 	philo = (t_philo *)philip;
 	while (1)
 	{
-		if (gettime() >= \
+		if (gettime() > \
 		philo->table->ti_die + philo->last_eat && !philo->is_eating)
 		{
-			print(philo, "died");
+			print(philo, "died", 1, 1);
 			pthread_mutex_unlock(&philo->table->dead);
+			return (NULL);
 		}
 		if (philo->table->nb_eat)
-		{
-			i = -1;
-			count = 0;
-			while (++i < philo->table->nb_phil)
-				if (philo->table->philo[i].nbr_eat >= philo->table->nb_eat)
-					count++;
-			if (count == philo->table->nb_phil)
-				pthread_mutex_unlock(&philo->table->dead);
-		}
-		usleep(100);
+			end_meal(philo);
+		wait_in_ms(1);
 	}
 }
 
@@ -71,7 +81,6 @@ int	philo_life(t_table *table)
 		if (pthread_create(&philo, NULL, &routine, (void *)(table->philo + i)))
 			return (1);
 		pthread_detach(philo);
-		usleep(100);
 	}
 	return (0);
 }

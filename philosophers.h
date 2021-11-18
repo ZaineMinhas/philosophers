@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:23:37 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/17 18:34:16 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/18 18:35:40 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,19 @@ struct s_table
 int					read_arg(t_table *var, int ac, char **av);
 void				init_philo(t_table *var);
 int					init_mutex(t_table *var);
-
 int					philo_life(t_table *table);
 void				*routine(void *philip);
-void				print(t_philo *philo, char *str);
+
+void				print(t_philo *philo, char *str, int b1o, int b2o);
 void				take_forks(t_philo *philo);
 void				eating(t_philo *philo);
 void				sleeping(t_philo *philo);
 
 unsigned long long	gettime(void);
+void				wait_in_ms(unsigned long long ms);
 int					return_error(char *str);
-int					make_clean(t_table *table, int type);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
+int					make_clean(t_table *table, int type);
 
 #endif
