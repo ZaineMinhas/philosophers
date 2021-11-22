@@ -6,7 +6,7 @@
 #    By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/08 16:29:37 by zminhas           #+#    #+#              #
-#    Updated: 2021/11/17 16:46:36 by zminhas          ###   ########.fr        #
+#    Updated: 2021/11/22 18:04:41 by zminhas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS	=	srcs/philosophers.c\
 			srcs/init.c\
 			srcs/life.c\
 			srcs/routine.c\
+			srcs/messages.c\
 			utils/utils.c\
 
 

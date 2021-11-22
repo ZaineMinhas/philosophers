@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 17:50:02 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/17 17:58:41 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/22 18:05:21 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,32 @@ int	ft_atoi(const char *str)
 int	ft_isdigit(int c)
 {
 	return (c >= 48 && c <= 57);
+}
+
+void	ft_putstr(char *s)
+{
+	int	size;
+
+	size = 0;
+	while (s[size])
+		size++;
+	write(1, s, size);
+}
+
+void	ft_putnbr(int n)
+{
+	unsigned int	nb;
+	char			c;
+
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		nb = -(unsigned int)n;
+	}
+	else
+		nb = n;
+	if (nb > 9)
+		ft_putnbr(nb / 10);
+	c = 48 + nb % 10;
+	write(1, &c, 1);
 }

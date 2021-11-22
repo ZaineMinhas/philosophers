@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:37:36 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/18 19:14:02 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/22 17:26:24 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	end_meal(t_philo *philo)
 	{
 		pthread_mutex_lock(&philo->table->talk_staff);
 		pthread_mutex_unlock(&philo->table->dead);
-		print(philo, "PONG LENIS", 1, 0);
 		return ;
 	}
 }
@@ -41,7 +40,7 @@ void	*end_calc(void *philip)
 		if (gettime() > \
 		philo->table->ti_die + philo->last_eat && !philo->is_eating)
 		{
-			print(philo, "died", 1, 1);
+			print(philo, 5, 1);
 			pthread_mutex_unlock(&philo->table->dead);
 			return (NULL);
 		}
