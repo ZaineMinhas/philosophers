@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:56:03 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/23 18:07:53 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/23 18:23:28 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print(t_philo *philo, int type, int end)
 	if (end)
 		philo->table->is_dead = 1;
 	if (type == 1)
-		write_msg(philo, "is thinking\n", GREEN);
+		write_msg(philo, "is thinking\n", ORANGE);
 	else if (type == 2)
 		write_msg(philo, "has taken a fork\n", PURPLE);
 	else if (type == 3)
