@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:23:37 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/22 18:02:28 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/23 18:07:29 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ struct s_table
 {
 	pthread_mutex_t		talk_staff;
 	pthread_mutex_t		*forks;
-	pthread_mutex_t		dead;
 	t_philo				*philo;
 	unsigned long long	start;
 	int					nb_phil;
@@ -54,6 +53,8 @@ struct s_table
 	int					ti_die;
 	int					ti_eat;
 	int					ti_slp;
+	int					stop;
+	int					is_dead;
 };
 
 int					read_arg(t_table *var, int ac, char **av);

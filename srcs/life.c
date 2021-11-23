@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:37:36 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/22 17:26:24 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/23 18:07:42 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	end_meal(t_philo *philo)
 	if (count == philo->table->nb_phil)
 	{
 		pthread_mutex_lock(&philo->table->talk_staff);
-		pthread_mutex_unlock(&philo->table->dead);
+		philo->table->is_dead = 1;
 		return ;
 	}
 }
@@ -41,7 +41,7 @@ void	*end_calc(void *philip)
 		philo->table->ti_die + philo->last_eat && !philo->is_eating)
 		{
 			print(philo, 5, 1);
-			pthread_mutex_unlock(&philo->table->dead);
+			philo->table->is_dead = 1;
 			return (NULL);
 		}
 		if (philo->table->nb_eat)
@@ -61,9 +61,17 @@ void	*routine(void *philip)
 		return (NULL);
 	while (1)
 	{
+		if (philo->table->stop)
+			return (NULL);
 		take_forks(philo);
+		if (philo->table->stop)
+			return (NULL);
 		eating(philo);
+		if (philo->table->stop)
+			return (NULL);
 		sleeping(philo);
+		if (philo->table->stop)
+			return (NULL);
 	}
 	return (NULL);
 }

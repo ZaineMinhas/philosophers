@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:42:02 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/22 17:35:24 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/23 17:45:10 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	make_clean(t_table *table, int type)
 	}
 	else if (type == 5)
 		pthread_mutex_destroy(&table->talk_staff);
-	else if (type == 6)
-		pthread_mutex_destroy(&table->dead);
 	make_clean(table, --type);
 	return (1);
 }
@@ -55,6 +53,14 @@ int	return_error(char *str)
 	if (str)
 		printf("%s\n", str);
 	return (1);
+}
+
+void	death_gate(t_table *table)
+{
+	while (!table->is_dead)
+		;
+	table->stop = 1;
+	return ;
 }
 
 int	main(int ac, char **av)
@@ -69,8 +75,8 @@ int	main(int ac, char **av)
 		return (return_error("Error") && make_clean(&table, error));
 	if (philo_life(&table))
 		return (return_error("Thread error") && make_clean(&table, 6));
-	pthread_mutex_lock(&table.dead);
-	pthread_mutex_unlock(&table.dead);
-	make_clean(&table, 6);
+	death_gate(&table);
+	wait_in_ms(100);
+	make_clean(&table, 5);
 	return (0);
 }

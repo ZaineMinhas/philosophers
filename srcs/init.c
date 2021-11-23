@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:50:58 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/18 19:03:34 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/23 17:44:59 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ int	init_mutex(t_table *table)
 	}
 	if (pthread_mutex_init(&table->talk_staff, NULL))
 		return (4);
-	if (pthread_mutex_init(&table->dead, NULL))
-		return (5);
-	pthread_mutex_lock(&table->dead);
 	return (0);
 }
 
@@ -64,6 +61,7 @@ int	read_arg(t_table *table, int ac, char **av)
 		table->nb_eat = ft_atoi(av[5]);
 	else
 		table->nb_eat = 0;
+	table->is_dead = 0;
 	table->philo = (t_philo *)malloc(sizeof(t_philo) * table->nb_phil);
 	if (!table->philo)
 		return (1);
