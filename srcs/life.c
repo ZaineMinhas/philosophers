@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:37:36 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/23 18:07:42 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/23 18:43:01 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	philo_life(t_table *table)
 	table->start = gettime();
 	while (++i < table->nb_phil)
 	{
+		if (table->stop)
+			return (1);
 		if (pthread_create(&philo, NULL, &routine, (void *)(table->philo + i)))
 			return (1);
 		pthread_detach(philo);

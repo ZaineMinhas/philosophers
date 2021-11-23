@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:42:02 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/23 17:45:10 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/23 18:52:34 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int ac, char **av)
 	if (philo_life(&table))
 		return (return_error("Thread error") && make_clean(&table, 6));
 	death_gate(&table);
-	wait_in_ms(100);
+	wait_in_ms(250);
 	make_clean(&table, 5);
 	return (0);
 }
