@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:50:58 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/24 17:17:48 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/24 17:21:31 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	read_arg(t_table *table, int ac, char **av)
 	else
 		table->nb_eat = 0;
 	table->is_dead = 0;
-	if (table->nb_phil <= 0|| table->nb_phil > 200 || table->ti_die < 60 || \
+	if (table->nb_phil <= 0 || table->nb_phil > 200 || table->ti_die < 60 || \
 		table->ti_eat < 60 || table->ti_slp < 60 || table->nb_eat < 0)
 		return (1);
 	table->philo = (t_philo *)malloc(sizeof(t_philo) * table->nb_phil);
