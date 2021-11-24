@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:54:48 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/24 15:17:08 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/24 17:08:00 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	eating(t_philo *philo)
 		return ;
 	philo->is_eating = 1;
 	print(philo, 3, 0);
+	philo->last_eat = gettime();
 	wait_in_ms(philo->table->ti_eat);
 	philo->is_eating = 0;
 	philo->nbr_eat++;
-	philo->last_eat = gettime();
 	pthread_mutex_unlock(&philo->table->forks[philo->l_fork]);
 	pthread_mutex_unlock(&philo->table->forks[philo->r_fork]);
 	if (philo->table->is_dead)

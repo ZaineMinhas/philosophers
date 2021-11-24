@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:42:02 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/24 16:11:58 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/24 17:13:19 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ int	main(int ac, char **av)
 	int		error;
 
 	if ((ac != 5 && ac != 6) || check_arg(ac, av))
-		return (write(1, "Wrong argument !!!\n", 19));
+		return (write(1, "Error\n", 6));
 	error = read_arg(&table, ac, av);
 	if (error)
 		return (write(1, "Error\n", 6) && make_clean(&table, error));
 	if (philo_life(&table))
-		return (write(1, "Thread error\n", 13) && make_clean(&table, 6));
+		return (write(1, "Error\n", 6) && make_clean(&table, 6));
 	death_gate(&table);
 	wait_in_ms(250);
 	make_clean(&table, 5);
