@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:42:02 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/23 18:52:34 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/24 16:11:58 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,27 @@ int	make_clean(t_table *table, int type)
 	return (1);
 }
 
-int	return_error(char *str)
-{
-	if (str)
-		printf("%s\n", str);
-	return (1);
-}
-
 void	death_gate(t_table *table)
 {
 	while (!table->is_dead)
 		;
-	table->stop = 1;
 	return ;
+}
+
+int	check_arg(int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (++i < ac)
+	{
+		j = -1;
+		while (av[i][++j])
+			if (!ft_isdigit(av[i][j]) && av[i][j] != '-' && av[i][j] != '+')
+				return (1);
+	}
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -68,13 +76,13 @@ int	main(int ac, char **av)
 	t_table	table;
 	int		error;
 
-	if (ac != 5 && ac != 6)
-		return (return_error("Wrong arument !!!"));
+	if ((ac != 5 && ac != 6) || check_arg(ac, av))
+		return (write(1, "Wrong argument !!!\n", 19));
 	error = read_arg(&table, ac, av);
 	if (error)
-		return (return_error("Error") && make_clean(&table, error));
+		return (write(1, "Error\n", 6) && make_clean(&table, error));
 	if (philo_life(&table))
-		return (return_error("Thread error") && make_clean(&table, 6));
+		return (write(1, "Thread error\n", 13) && make_clean(&table, 6));
 	death_gate(&table);
 	wait_in_ms(250);
 	make_clean(&table, 5);

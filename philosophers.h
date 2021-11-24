@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:23:37 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/23 18:07:29 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/24 15:53:35 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ struct s_table
 	int					ti_die;
 	int					ti_eat;
 	int					ti_slp;
-	int					stop;
 	int					is_dead;
 };
 
@@ -70,7 +69,6 @@ void				sleeping(t_philo *philo);
 
 unsigned long long	gettime(void);
 void				wait_in_ms(unsigned long long ms);
-int					return_error(char *str);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
 int					make_clean(t_table *table, int type);

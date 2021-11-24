@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:37:36 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/23 18:43:01 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/24 16:15:31 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ void	*routine(void *philip)
 		return (NULL);
 	while (1)
 	{
-		if (philo->table->stop)
+		if (philo->table->is_dead)
 			return (NULL);
 		take_forks(philo);
-		if (philo->table->stop)
+		if (philo->table->is_dead)
 			return (NULL);
 		eating(philo);
-		if (philo->table->stop)
+		if (philo->table->is_dead)
 			return (NULL);
 		sleeping(philo);
-		if (philo->table->stop)
+		if (philo->table->is_dead)
 			return (NULL);
 	}
 	return (NULL);
@@ -85,11 +85,12 @@ int	philo_life(t_table *table)
 	table->start = gettime();
 	while (++i < table->nb_phil)
 	{
-		if (table->stop)
-			return (1);
+		if (table->is_dead)
+			return (0);
 		if (pthread_create(&philo, NULL, &routine, (void *)(table->philo + i)))
 			return (1);
 		pthread_detach(philo);
+		usleep(100);
 	}
 	return (0);
 }
