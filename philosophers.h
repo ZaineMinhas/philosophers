@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:23:37 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/24 15:53:35 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/25 18:30:14 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
-
-# define BLACK "\033[30m"
-# define RED "\033[31m"
-# define GREEN "\033[32m"
-# define YELLOW "\033[33m"
-# define ORANGE "\033[34m"
-# define PURPLE "\033[35m"
-# define CYAN "\033[36m"
-# define WHITE "\033[37m"
-# define NC "\033[0m"
 
 typedef struct s_table	t_table;
 
@@ -59,21 +49,27 @@ struct s_table
 int					read_arg(t_table *var, int ac, char **av);
 void				init_philo(t_table *var);
 int					init_mutex(t_table *var);
+int					make_clean(t_table *table, int type);
+
 int					philo_life(t_table *table);
 void				*routine(void *philip);
-
-void				print(t_philo *philo, int type, int end);
 void				take_forks(t_philo *philo);
 void				eating(t_philo *philo);
 void				sleeping(t_philo *philo);
+void				thinking(t_philo *philo);
+
+void				print(t_philo *philo, int type, int end);
+void				write_thinking(t_philo *philo);
+void				write_take_forks(t_philo *philo);
+void				write_eating(t_philo *philo);
+void				write_sleeping(t_philo *philo);
+void				write_died(t_philo *philo);
 
 unsigned long long	gettime(void);
 void				wait_in_ms(unsigned long long ms);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
-int					make_clean(t_table *table, int type);
 void				ft_putstr(char *s);
 void				ft_putnbr(int n);
-void				write_msg(t_philo *philo, char *msg, char *color);
 
 #endif

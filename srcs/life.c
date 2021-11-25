@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:37:36 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/24 16:15:31 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/25 18:23:44 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	end_meal(t_philo *philo)
 			count++;
 	if (count == philo->table->nb_phil)
 	{
-		pthread_mutex_lock(&philo->table->talk_staff);
 		philo->table->is_dead = 1;
+		pthread_mutex_lock(&philo->table->talk_staff);
 		return ;
 	}
 }
@@ -70,6 +70,9 @@ void	*routine(void *philip)
 		if (philo->table->is_dead)
 			return (NULL);
 		sleeping(philo);
+		if (philo->table->is_dead)
+			return (NULL);
+		thinking(philo);
 		if (philo->table->is_dead)
 			return (NULL);
 	}
