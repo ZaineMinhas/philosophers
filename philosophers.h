@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:23:37 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/25 18:30:14 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/27 17:36:47 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void				write_eating(t_philo *philo);
 void				write_sleeping(t_philo *philo);
 void				write_died(t_philo *philo);
 
+int					ft_error(char *str);
 unsigned long long	gettime(void);
 void				wait_in_ms(unsigned long long ms);
 int					ft_atoi(const char *str);

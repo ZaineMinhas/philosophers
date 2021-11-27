@@ -6,11 +6,18 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:50:58 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/25 18:24:23 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/27 16:54:22 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+
+int	ft_error(char *str)
+{
+	if (str)
+		printf("%s\n", str);
+	return (1);
+}
 
 int	init_mutex(t_table *table)
 {
@@ -68,10 +75,10 @@ int	read_arg(t_table *table, int ac, char **av)
 	table->is_dead = 0;
 	if (table->nb_phil <= 0 || table->nb_phil > 200 || table->ti_die < 60 || \
 		table->ti_eat < 60 || table->ti_slp < 60 || table->nb_eat < 0)
-		return (1);
+		return (ft_error("Error"));
 	table->philo = (t_philo *)malloc(sizeof(t_philo) * table->nb_phil);
 	if (!table->philo)
-		return (1);
+		return (ft_error("Error"));
 	init_philo(table);
 	return (init_mutex(table));
 }
