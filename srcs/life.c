@@ -6,27 +6,32 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:37:36 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/27 17:36:44 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/27 19:20:39 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void	end_meal(t_philo *philo)
+void	*end_meal(void *p)
 {
-	int	count;
-	int	i;
+	t_table	*table;
+	int		count;
+	int		i;
 
-	i = -1;
-	count = 0;
-	while (++i < philo->table->nb_phil)
-		if (philo->table->philo[i].nbr_eat >= philo->table->nb_eat)
-			count++;
-	if (count == philo->table->nb_phil)
+	table = (t_table *)p;
+	while (1)
 	{
-		philo->table->is_dead = 1;
-		pthread_mutex_lock(&philo->table->talk_staff);
-		return ;
+		i = -1;
+		count = 0;
+		while (++i < table->nb_phil)
+			if (table->philo[i].nbr_eat >= table->nb_eat)
+				count++;
+		if (count == table->nb_phil)
+		{
+			pthread_mutex_lock(&table->talk_staff);
+			table->is_dead = 1;
+			return (NULL);
+		}
 	}
 }
 
@@ -44,8 +49,6 @@ void	*end_calc(void *philip)
 			philo->table->is_dead = 1;
 			return (NULL);
 		}
-		if (philo->table->nb_eat)
-			end_meal(philo);
 		wait_in_ms(1);
 	}
 }
@@ -72,9 +75,7 @@ void	*routine(void *philip)
 		sleeping(philo);
 		if (philo->table->is_dead)
 			return (NULL);
-		thinking(philo);
-		if (philo->table->is_dead)
-			return (NULL);
+		print(philo, 1, 0);
 	}
 	return (NULL);
 }
@@ -86,6 +87,9 @@ int	philo_life(t_table *table)
 
 	i = -1;
 	table->start = gettime();
+	if (table->nb_eat)
+		if (pthread_create(&philo, NULL, &end_meal, (void *)table))
+			return (1);
 	while (++i < table->nb_phil)
 	{
 		if (table->is_dead)
