@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:54:48 by zminhas           #+#    #+#             */
-/*   Updated: 2021/11/27 19:25:00 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/11/28 18:00:22 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	eating(t_philo *philo)
 		return ;
 	philo->is_eating = 1;
 	philo->last_eat = gettime();
+	print(philo, 3, 0);
 	wait_in_ms(philo->table->ti_eat);
 	philo->is_eating = 0;
 	philo->nbr_eat++;
-	print(philo, 3, 0);
 	if (philo->table->is_dead)
 		return ;
 }
